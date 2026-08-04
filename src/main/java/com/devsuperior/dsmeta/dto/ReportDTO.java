@@ -7,11 +7,12 @@ public class ReportDTO {
     private Long id;
     private Double quantia;
     private LocalDate date;
+    private String seller;
 
-    private SellerDTO seller;
-
-    public ReportDTO(LocalDate date) {
+    public ReportDTO(LocalDate date, String seller) {
         this.date = date;
+        this.seller = seller;
+
     }
 
     public LocalDate getDate() {
@@ -22,7 +23,7 @@ public class ReportDTO {
         return quantia;
     }
 
-    public SellerDTO getSeller() {
+    public String getSeller() {
         return seller;
     }
 
