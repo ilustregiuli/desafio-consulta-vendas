@@ -44,13 +44,11 @@ public class SaleController {
 			@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 			LocalDate maxDate,
 
-			@RequestParam(required = false)
-			String name,
-
+			@RequestParam(required = false) String name,
 			Pageable pageable
 	) {
 
-		ReportDTO dto = new ReportDTO(maxDate, name);
+		ReportDTO dto = new ReportDTO(maxDate);
 
 		return ResponseEntity.ok(dto);
 	}
