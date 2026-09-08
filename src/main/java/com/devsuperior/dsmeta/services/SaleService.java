@@ -3,13 +3,13 @@ package com.devsuperior.dsmeta.services;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.List;
 import java.util.Optional;
 
 import com.devsuperior.dsmeta.dto.ReportDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
 
 import com.devsuperior.dsmeta.dto.SaleMinDTO;
@@ -23,7 +23,6 @@ public class SaleService {
 	private SaleRepository repository;
 
 	private final LocalDate TODAY = LocalDate.ofInstant(Instant.now(), ZoneId.systemDefault());
-	private final LocalDate ONE_YEAR_AGO = TODAY.minusYears(1L);
 	
 	public SaleMinDTO findById(Long id) {
 		Optional<Sale> result = repository.findById(id);
@@ -31,17 +30,35 @@ public class SaleService {
 		return new SaleMinDTO(entity);
 	}
 
+
 	public Page<ReportDTO> report(
 			String minDate,
 			String maxDate,
 			String name,
 			Pageable pageable
 	) {
-		@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 
+        LocalDate maxDateFinal;
+		LocalDate minDateFinal;
 
+        if(maxDate == null){
+			maxDateFinal = TODAY;
+		} else {
+			maxDateFinal = LocalDate.parse(maxDate);
+		}
 
+		if(minDate == null){
+			minDateFinal = maxDateFinal.minusYears(1L);
+		} else {
+			minDateFinal = LocalDate.parse(minDate);
+		}
 
-		Page<ReportDTO> reportDTOList
+		if(name == null) {
+			name = "";
+		}
+
+		Page<ReportDTO> listaReport = repository.report(maxDateFinal, minDateFinal, name, pageable);
+
+		return listaReport;
 	}
 }
