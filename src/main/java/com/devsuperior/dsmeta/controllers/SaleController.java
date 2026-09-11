@@ -23,9 +23,6 @@ public class SaleController {
 	@Autowired
 	private SaleService service;
 
-	LocalDate today = LocalDate.ofInstant(Instant.now(), ZoneId.systemDefault());
-	LocalDate result = today.minusYears(1L);
-	
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<SaleMinDTO> findById(@PathVariable Long id) {
 		SaleMinDTO dto = service.findById(id);
@@ -33,24 +30,22 @@ public class SaleController {
 	}
 
 	@GetMapping(value = "/report")
-	//public ResponseEntity<Page<ReportDTO>>
-	public ResponseEntity<ReportDTO> getReport(
+	public ResponseEntity<Page<ReportDTO>> getReport(
 
 			@RequestParam(required = false)
-			@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-			LocalDate minDate,
+			String minDate,
 
 			@RequestParam(required = false)
-			@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-			LocalDate maxDate,
+			String maxDate,
 
-			@RequestParam(required = false) String name,
+			@RequestParam(required = false)
+			String name,
+
 			Pageable pageable
 	) {
 
-		ReportDTO dto = new ReportDTO(maxDate);
-
-		return ResponseEntity.ok(dto);
+		Page<ReportDTO> reportDTOList = service.report(minDate, maxDate, name, pageable);
+		return ResponseEntity.ok(reportDTOList);
 	}
 
 	@GetMapping(value = "/summary")
