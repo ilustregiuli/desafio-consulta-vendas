@@ -57,8 +57,12 @@ public class SaleService {
 			name = "";
 		}
 
+		System.out.println("Data Final selecionada: " + maxDateFinal);
+		System.out.println("Data Inicial selecionada:" + minDateFinal);
+
 		Page<ReportDTO> listaReport = repository.report(maxDateFinal, minDateFinal, name, pageable);
 
 		return listaReport;
+
 	}
 }

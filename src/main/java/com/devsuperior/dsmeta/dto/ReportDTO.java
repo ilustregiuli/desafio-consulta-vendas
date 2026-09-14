@@ -1,5 +1,7 @@
 package com.devsuperior.dsmeta.dto;
 
+import com.devsuperior.dsmeta.entities.Seller;
+
 import java.time.LocalDate;
 
 public class ReportDTO {
@@ -7,11 +9,13 @@ public class ReportDTO {
     private Long id;
     private Double quantia;
     private LocalDate date;
-    private String seller;
+    private Seller seller;
 
-    public ReportDTO(LocalDate date, String seller) {
+    public ReportDTO(Long id, LocalDate date, Seller seller, Double quantia) {
+        this.id = id;
         this.date = date;
         this.seller = seller;
+        this.quantia = quantia;
 
     }
 
@@ -23,8 +27,12 @@ public class ReportDTO {
         return quantia;
     }
 
-    public String getSeller() {
+    public Seller getSeller() {
         return seller;
+    }
+
+    public Long getId() {
+        return id;
     }
 
 }
