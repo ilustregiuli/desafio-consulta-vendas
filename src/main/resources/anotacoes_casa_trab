@@ -1,0 +1,10 @@
+
+-- Consulta para pesquisar se o valor existe ou não ---
+SET @nome = 'Lo';
+
+SELECT sales.id, sales.date, sales.amount, seller.NAME
+FROM TB_SALES sales
+JOIN TB_SELLER seller ON sales.SELLER_ID = seller.ID
+WHERE sales.DATE BETWEEN '2025-06-01' AND '2025-06-30'
+AND (@nome IS NULL OR seller.NAME LIKE CONCAT('%',@nome,'%'));
+-------------------------------------------------------------------------
