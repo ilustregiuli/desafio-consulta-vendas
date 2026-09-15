@@ -9,9 +9,9 @@ public class ReportDTO {
     private Long id;
     private Double quantia;
     private LocalDate date;
-    private Seller seller;
+    private String seller;
 
-    public ReportDTO(Long id, LocalDate date, Seller seller, Double quantia) {
+    public ReportDTO(Long id, LocalDate date, String seller, Double quantia) {
         this.id = id;
         this.date = date;
         this.seller = seller;
@@ -27,7 +27,7 @@ public class ReportDTO {
         return quantia;
     }
 
-    public Seller getSeller() {
+    public String getSeller() {
         return seller;
     }
 
