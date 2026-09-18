@@ -1,6 +1,7 @@
 package com.devsuperior.dsmeta.repositories;
 
 import com.devsuperior.dsmeta.dto.ReportDTO;
+import com.devsuperior.dsmeta.dto.SummaryDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -21,5 +22,10 @@ public interface SaleRepository extends JpaRepository<Sale, Long> {
                            @Param("minDate") LocalDate minDate,
                            @Param("name") String name,
                            Pageable pageable);
-    
+
+    @Query( "SELECT new com.devsuperior.dsmeta.dto.SummaryDTO(s.seller.name,
+
+    Page<SummaryDTO> summary(@Param("maxDate") LocalDate maxDate,
+                             @Param("minDate") LocalDate minDate,
+                             Pageable pageable);
 }

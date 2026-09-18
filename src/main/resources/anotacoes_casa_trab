@@ -8,3 +8,15 @@ JOIN TB_SELLER seller ON sales.SELLER_ID = seller.ID
 WHERE sales.DATE BETWEEN '2025-06-01' AND '2025-06-30'
 AND (@nome IS NULL OR seller.NAME LIKE CONCAT('%',@nome,'%'));
 -------------------------------------------------------------------------
+
+-- Consulta para pesquisar e trazer nome mais total de vendas de cada vendedor
+
+SELECT seller.NAME AS sellerName, SUM(sales.AMOUNT) AS total
+FROM TB_SALES sales
+JOIN TB_SELLER seller ON sales.SELLER_ID = seller.ID
+WHERE sales.DATE BETWEEN '2025-06-01' AND '2025-06-30'
+GROUP BY seller.NAME;
+
+-- data: 18/09/2026 - Próxima task: montando a consulta no Repository
+-- verificar no "select" como fazer para gerar o "sum" da soma das vendas por funcionário
+-- continuar no arquivo: SaleRepository linha 26
