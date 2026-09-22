@@ -23,8 +23,11 @@ public interface SaleRepository extends JpaRepository<Sale, Long> {
                            @Param("name") String name,
                            Pageable pageable);
 
-    @Query( "SELECT new com.devsuperior.dsmeta.dto.SummaryDTO(s.seller.name,
-
+    @Query( "SELECT new com.devsuperior.dsmeta.dto.SummaryDTO(s.seller.name, SUM(s.amount)) " +
+            "FROM Sale s " +
+            "WHERE s.date BETWEEN :minDate AND :maxDate " +
+            "GROUP BY s.seller.name"
+    )
     Page<SummaryDTO> summary(@Param("maxDate") LocalDate maxDate,
                              @Param("minDate") LocalDate minDate,
                              Pageable pageable);

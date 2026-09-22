@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.devsuperior.dsmeta.dto.ReportDTO;
+import com.devsuperior.dsmeta.dto.SummaryDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -57,12 +58,31 @@ public class SaleService {
 			name = "";
 		}
 
-		System.out.println("Data Final selecionada: " + maxDateFinal);
-		System.out.println("Data Inicial selecionada:" + minDateFinal);
-
-		Page<ReportDTO> listaReport = repository.report(maxDateFinal, minDateFinal, name, pageable);
-
-		return listaReport;
+        return repository.report(maxDateFinal, minDateFinal, name, pageable);
 
 	}
+
+	public Page<SummaryDTO> summary(
+			String minDate,
+			String maxDate,
+			Pageable pageable
+	) {
+		LocalDate maxDateFinal;
+		LocalDate minDateFinal;
+
+		if(maxDate == null){
+			maxDateFinal = TODAY;
+		} else {
+			maxDateFinal = LocalDate.parse(maxDate);
+		}
+
+		if(minDate == null){
+			minDateFinal = maxDateFinal.minusYears(1L);
+		} else {
+			minDateFinal = LocalDate.parse(minDate);
+		}
+
+        return repository.summary(maxDateFinal, minDateFinal, pageable);
+	}
+
 }
