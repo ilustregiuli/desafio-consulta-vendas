@@ -39,20 +39,8 @@ public class SaleService {
 			Pageable pageable
 	) {
 
-        LocalDate maxDateFinal;
-		LocalDate minDateFinal;
-
-        if(maxDate == null){
-			maxDateFinal = TODAY;
-		} else {
-			maxDateFinal = LocalDate.parse(maxDate);
-		}
-
-		if(minDate == null){
-			minDateFinal = maxDateFinal.minusYears(1L);
-		} else {
-			minDateFinal = LocalDate.parse(minDate);
-		}
+        LocalDate maxDateFinal = this.dataMaxFinal(maxDate);
+		LocalDate minDateFinal = this.dataMinFinal(minDate, maxDateFinal);
 
 		if(name == null) {
 			name = "";
@@ -66,22 +54,27 @@ public class SaleService {
 			String minDate,
 			String maxDate
 	) {
-		LocalDate maxDateFinal;
-		LocalDate minDateFinal;
 
-		if(maxDate == null){
-			maxDateFinal = TODAY;
-		} else {
-			maxDateFinal = LocalDate.parse(maxDate);
-		}
-
-		if(minDate == null){
-			minDateFinal = maxDateFinal.minusYears(1L);
-		} else {
-			minDateFinal = LocalDate.parse(minDate);
-		}
+		LocalDate maxDateFinal = this.dataMaxFinal(maxDate);
+		LocalDate minDateFinal = this.dataMinFinal(minDate,maxDateFinal);
 
         return repository.summary(maxDateFinal, minDateFinal);
+	}
+
+	private LocalDate dataMaxFinal(String dataMax) {
+		if(dataMax == null){
+			return TODAY;
+		} else {
+			return LocalDate.parse(dataMax);
+		}
+	}
+
+	private LocalDate dataMinFinal(String dataMin, LocalDate maxDateFinal) {
+		if(dataMin == null){
+			return maxDateFinal.minusYears(1L);
+		} else {
+			return LocalDate.parse(dataMin);
+		}
 	}
 
 }
