@@ -9,6 +9,8 @@ import com.devsuperior.dsmeta.entities.Sale;
 import org.springframework.data.jpa.repository.Query;
 
 import java.time.LocalDate;
+import java.util.List;
+
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.query.Param;
 
@@ -28,7 +30,6 @@ public interface SaleRepository extends JpaRepository<Sale, Long> {
             "WHERE s.date BETWEEN :minDate AND :maxDate " +
             "GROUP BY s.seller.name"
     )
-    Page<SummaryDTO> summary(@Param("maxDate") LocalDate maxDate,
-                             @Param("minDate") LocalDate minDate,
-                             Pageable pageable);
+    List<SummaryDTO> summary(@Param("maxDate") LocalDate maxDate,
+                             @Param("minDate") LocalDate minDate);
 }

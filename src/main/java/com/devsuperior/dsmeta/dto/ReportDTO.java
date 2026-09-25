@@ -7,15 +7,15 @@ import java.time.LocalDate;
 public class ReportDTO {
 
     private Long id;
-    private Double quantia;
+    private Double amount;
     private LocalDate date;
-    private String seller;
+    private String sellerName;
 
-    public ReportDTO(Long id, LocalDate date, String seller, Double quantia) {
+    public ReportDTO(Long id, LocalDate date, String sellerName, Double amount) {
         this.id = id;
         this.date = date;
-        this.seller = seller;
-        this.quantia = quantia;
+        this.sellerName = sellerName;
+        this.amount = amount;
 
     }
 
@@ -23,12 +23,12 @@ public class ReportDTO {
         return date;
     }
 
-    public Double getQuantia() {
-        return quantia;
+    public Double getAmount() {
+        return amount;
     }
 
-    public String getSeller() {
-        return seller;
+    public String getSellerName() {
+        return sellerName;
     }
 
     public Long getId() {

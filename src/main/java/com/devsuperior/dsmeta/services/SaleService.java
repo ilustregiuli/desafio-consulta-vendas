@@ -62,10 +62,9 @@ public class SaleService {
 
 	}
 
-	public Page<SummaryDTO> summary(
+	public List<SummaryDTO> summary(
 			String minDate,
-			String maxDate,
-			Pageable pageable
+			String maxDate
 	) {
 		LocalDate maxDateFinal;
 		LocalDate minDateFinal;
@@ -82,7 +81,7 @@ public class SaleService {
 			minDateFinal = LocalDate.parse(minDate);
 		}
 
-        return repository.summary(maxDateFinal, minDateFinal, pageable);
+        return repository.summary(maxDateFinal, minDateFinal);
 	}
 
 }
